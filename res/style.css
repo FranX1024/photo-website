@@ -1,0 +1,357 @@
+
+@font-face {
+	font-family: 'pfont';
+	src: url('/res/font.ttf');
+}
+
+* {
+	font-family: pfont;
+}
+
+/* ---------- Base layout ---------- */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, sans-serif;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.header-inner {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1200px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: center;
+}
+
+/* Align logo left, nav right */
+.header-inner > a {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* ---------- Navigation ---------- */
+
+
+.site-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1199px) {
+	.site-nav ul {
+		display: none;
+	}
+	.site-nav input {
+		display: none;
+	}
+	.site-nav label {
+		font-size: 30px;
+		user-select: none;
+	}
+	.logo img {
+		height: 30px;
+	}
+	.site-nav {
+		position: relative;
+	}
+	.site-nav:has(:checked) ul {
+		position: absolute;
+		display: block;
+		right: 0px;
+		top: 33px;
+		width: 150px;
+		background-color: #f5f5f5;
+	}
+	.site-nav ul {
+		list-style: none;
+		padding: 5px;
+		border: 1px solid #e5e5e5;
+		background-color: white;
+	}
+
+	.site-nav ul > li {
+		border-bottom: 1px solid #e5e5e5;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		border-radius: 5px;
+		min-width: 100px;
+	}
+	.site-nav ul > li > a {
+		display: block;
+		width: 100%;
+	}
+}
+
+@media (min-width: 1200px) {
+	.site-nav {
+		display: flex;
+		align-items: flex-end;
+	}
+
+	.site-nav ul {
+		list-style: none;
+		display: flex;
+		gap: 1.5rem;
+		margin: 0;
+		padding: 0;
+	}
+
+	.site-nav label {
+		display: none;
+	}
+}
+
+/* ---------- Main ---------- */
+
+.site-content {
+  flex: 1; /* pushes footer to bottom if content is short */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  background: #f7f7f7;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.site-footer address {
+  font-style: normal;
+  margin-top: 1rem;
+}
+
+.site-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+
+/* ---------- Base gallery ---------- */
+
+.gallery {
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 0;
+}
+
+/* ---------- Label / title row ---------- */
+
+.gallery > label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+  user-select: none;
+}
+
+/* Hide the checkbox visually but keep it accessible */
+.gallery > label > input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Optional indicator arrow */
+.gallery > label::after {
+  content: "▾";
+  margin-left: auto;
+  transition: transform 0.25s ease;
+}
+
+/* Rotate arrow when open */
+.gallery > label:has(input:checked)::after {
+  transform: rotate(180deg);
+}
+
+/* ---------- Collapsible content ---------- */
+
+.gallery-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.4s ease,
+    opacity 0.25s ease;
+}
+
+/* Expand when checked */
+.gallery > label:has(input:checked) + .gallery-content {
+  max-height: 2000px; /* large enough for content */
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+/* ---------- Images ---------- */
+
+.gallery-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.gallery-content img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+/* ---------- Blog list layout ---------- */
+
+.bloglist {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* ---------- Blog card ---------- */
+
+.blog-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Hover effect for the entire card */
+.blog-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ---------- Clickable area ---------- */
+
+.blog-card a {
+  display: block;          /* makes image + title one click target */
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ---------- Image ---------- */
+
+.blog-card img {
+  display: block;          /* removes inline spacing */
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;     /* consistent card height */
+  object-fit: cover;
+}
+
+/* ---------- Title ---------- */
+
+.blog-card h2 {
+  font-size: 1.1rem;
+  line-height: 1.3;
+  margin: 0;
+  padding: 0.75rem 1rem;
+}
+
+/* Underline title on hover (clear affordance) */
+.blog-card a:hover h2 {
+  text-decoration: underline;
+}
+
+/* ---------- Date ---------- */
+
+.blog-card time {
+  display: block;
+  padding: 0 1rem 1rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* ---------- Fancy button (magenta) ---------- */
+
+.fancy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+
+  text-decoration: none;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #d63384, #a61f7a); /* magenta gradient */
+  color: #fff;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.15s ease;
+}
+
+/* ---------- Hover ---------- */
+
+.fancy-btn:hover {
+  background: linear-gradient(135deg, #bf2d79, #8f1a62);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ---------- Active ---------- */
+
+.fancy-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- Focus (accessibility) ---------- */
+
+.fancy-btn:focus-visible {
+  outline: 3px solid rgba(214, 51, 132, 0.5);
+  outline-offset: 3px;
+}
+
+
+
